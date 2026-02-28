@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASPIRANT · my wishlist</title>
+  <!-- Google Fonts (same as index) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fafafa;
+      color: #1e1e1e;
+      line-height: 1.5;
+    }
+
+    /* ----- STICKY HEADER (exact copy from index) ----- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      padding: 1rem 2rem;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .main-nav ul {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      color: #f0f0f0;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .main-nav a:hover {
+      color: #bbbbbb;
+    }
+
+    /* ----- MARQUEE BAR (exact copy from index) ----- */
+    .marquee-bar {
+      background-color: #2e2e2e;
+      color: #ffffff;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #444;
+    }
+
+    .marquee-content {
+      font-size: 1rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .separator {
+      color: #aaaaaa;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    /* ----- BACK BUTTON (new) ----- */
+    .back-button-container {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 1.5px solid #1e1e1e;
+      color: #1e1e1e;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* ----- WISHLIST SECTION ----- */
+    .wishlist-section {
+      max-width: 1400px;
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .wishlist-title {
+      font-size: 2.2rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+      position: relative;
+    }
+
+    .wishlist-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 2px;
+      background-color: #2e2e2e;
+      margin: 0.8rem 0 0;
+    }
+
+    /* wishlist grid */
+    .wishlist-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    /* product card (matches category page style) */
+    .wishlist-card {
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #eaeaea;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wishlist-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .wishlist-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background-color: #f4f4f4;
+    }
+
+    .wishlist-info {
+      padding: 1rem 1rem 0.5rem;
+    }
+
+    .wishlist-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: #1e1e1e;
+    }
+
+    .wishlist-id {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.5px;
+    }
+
+    .wishlist-price {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #0a0a0a;
+      margin-bottom: 0.8rem;
+    }
+
+    /* button group */
+    .wishlist-actions {
+      display: flex;
+      gap: 0.8rem;
+      padding: 0 1rem 1.2rem;
+    }
+
+    .remove-btn {
+      flex: 1;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      padding: 0.6rem 0;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      text-align: center;
+    }
+
+    .remove-btn:hover {
+      background-color: #f1b0b7;
+    }
+
+    .buy-btn {
+      flex: 1;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 0.6rem 0;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background-color 0.2s;
+    }
+
+    .buy-btn:hover {
+      background-color: #b8dfc2;
+    }
+
+    /* empty wishlist state */
+    .empty-wishlist {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eaeaea;
+    }
+
+    .empty-wishlist p {
+      font-size: 1.5rem;
+      color: #777;
+      margin-bottom: 2rem;
+    }
+
+    .continue-shopping {
+      display: inline-block;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      padding: 0.9rem 3rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: background-color 0.2s;
+    }
+
+    .continue-shopping:hover {
+      background-color: #0a0a0a;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 1024px) {
+      .wishlist-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-container {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .main-nav ul {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .logo {
+        font-size: 1.6rem;
+      }
+      .wishlist-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .wishlist-title {
+        font-size: 1.8rem;
+      }
+      .back-button-container {
+        padding: 0 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wishlist-section {
+        padding: 0 1rem;
+      }
+      .wishlist-actions {
+        flex-direction: column;
+      }
+      .wishlist-name {
+        font-size: 1rem;
+      }
+      .wishlist-price {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (exact copy from index) -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">ASPIRANT</div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MARQUEE DISCOUNT BAR (exact copy from index) -->
+  <div class="marquee-bar">
+    <marquee behavior="scroll" direction="left" scrollamount="6" class="marquee-content">
+       <span>🔥 Flat 20 % OFF Above 599 Shopping</span>
+      <span class="separator">•</span>
+      <span>🚚 Free Shipping In Siliguri</span>
+      <span class="separator">•</span>
+      <span>💎 Premium Collection Now Live</span>
+    </marquee>
+  </div>
+
+  <!-- BACK BUTTON -->
+  <div class="back-button-container">
+    <button class="back-btn" onclick="history.back()">← Back</button>
+  </div>
+
+  <!-- MAIN WISHLIST SECTION -->
+  <section class="wishlist-section">
+    <h1 class="wishlist-title">My Wishlist</h1>
+    <div id="wishlistContainer">
+      <!-- Dynamically filled by JavaScript -->
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      const WISHLIST_KEYS = [
+        'aspirantWishlist_ankles',
+        'aspirantWishlist_bangles',
+        'aspirantWishlist_bridal',
+        'aspirantWishlist_earring',
+        'aspirantWishlist_engagement',
+        'aspirantWishlist_hair',
+        'aspirantWishlist_jhumki',
+        'aspirantWishlist_kids',
+        'aspirantWishlist_mens',
+        'aspirantWishlist_necklace',
+        'aspirantWishlist_ring',
+        'aspirantWishlist_spiritual'
+      ];
+      const container = document.getElementById('wishlistContainer');
+
+      // Helper to extract numeric price from a string like "₹1,299" → 1299
+      function extractNumberFromPrice(priceString) {
+        if (typeof priceString === 'number') return priceString; // already number
+        const cleaned = priceString.replace(/[^0-9.-]+/g, '');
+        return parseFloat(cleaned) || 0;
+      }
+
+      // Helper to get wishlist from localStorage
+      function getWishlist() {
+        let allWishlist = [];
+        WISHLIST_KEYS.forEach(key => {
+          try {
+            const items = JSON.parse(localStorage.getItem(key)) || [];
+            allWishlist = allWishlist.concat(items);
+          } catch {
+            // ignore error
+          }
+        });
+        return allWishlist;
+      }
+
+      // Render wishlist items
+      function renderWishlist() {
+        const wishlist = getWishlist();
+
+        // If empty, show empty state
+        if (wishlist.length === 0) {
+          container.innerHTML = `
+            <div class="empty-wishlist">
+              <p>Your Wishlist is Empty</p>
+              <a href="index.html" class="continue-shopping">Continue Shopping</a>
+            </div>
+          `;
+          return;
+        }
+
+        // Build grid of cards
+        let html = '<div class="wishlist-grid">';
+        wishlist.forEach(item => {
+          html += `
+            <div class="wishlist-card" data-product-id="${item.id}">
+              <img src="${item.image}" alt="${item.name}" loading="lazy">
+              <div class="wishlist-info">
+                <h3 class="wishlist-name">${item.name}</h3>
+                <div class="wishlist-id">ID: ${item.id}</div>
+                <div class="wishlist-price">${item.price}</div>
+              </div>
+              <div class="wishlist-actions">
+                <button class="remove-btn" data-id="${item.id}">Remove</button>
+                <button class="buy-btn" data-id="${item.id}">Buy Now</button>
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+
+        // Attach remove event listeners
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            WISHLIST_KEYS.forEach(key => {
+              try {
+                let items = JSON.parse(localStorage.getItem(key)) || [];
+                items = items.filter(item => item.id !== id);
+                localStorage.setItem(key, JSON.stringify(items));
+              } catch (e) {
+                console.error("Error updating wishlist:", e);
+              }
+            });
+            renderWishlist(); // re-render after removal
+          });
+        });
+
+        // 🔧 FIX: Buy Now button – convert price to number before sending to checkout
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            const wishlist = getWishlist();
+            const selectedProduct = wishlist.find(item => item.id === id);
+
+            if (selectedProduct) {
+              // Create a clean copy with numeric price
+              const productForCheckout = {
+                ...selectedProduct,
+                price: extractNumberFromPrice(selectedProduct.price) // overwrite with number
+              };
+              localStorage.setItem("selectedProduct", JSON.stringify(productForCheckout));
+              window.location.href = "checkout.html";
+            }
+          });
+        });
+      }
+
+      // Initial render
+      renderWishlist();
+    })();
+  </script>
+
+ <!-- ===== PREMIUM FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- top footer: 4 columns -->
+    <div class="footer-top">
+      <!-- COLUMN 1 - Brand Info -->
+      <div class="footer-col">
+        <h4 class="footer-logo">ASPIRANT</h4>
+        <p class="brand-desc">Luxury jewellery crafted for those who appreciate timeless elegance and modern sophistication.</p>
+        <p class="tagline">"Crafting elegance for every moment."</p>
+      </div>
+
+      <!-- COLUMN 2 - Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="wish.html">Wishlist</a></li>
+        </ul>
+      </div>
+
+      <!-- COLUMN 3 - Categories (shortened list for space, but you can include all 12) -->
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul class="footer-links two-columns">
+          <li><a href="404-page.html">Anklets</a></li>
+          <li><a href="category-bracelets-bangles.html">Bracelets & Bangles</a></li>
+          <li><a href="404-page.html">Bridal Set</a></li>
+          <li><a href="category-earring.html">Earring</a></li>
+          <li><a href="404-page.html">Engagement Ring</a></li>
+          <li><a href="404-page.html">Hair Jewelry</a></li>
+
+          <li><a href="404-page.html">Kids Jewelry</a></li>
+          <li><a href="404-page.html">Mens Jewelry</a></li>
+          <li><a href="category-necklace.html">Necklace</a></li>
+          <li><a href="404-page.html">Ring</a></li>
+          <li><a href="404-page.html">Spiritual</a></li>
+        </ul>
+      </div>
+
+      <!-- COLUMN 4 - Contact Info -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="contact-info">
+          <li>📞 +91 8927956691</li>
+          <li>✉️ aspirantjewellers03@gmail.com</li>
+          <li>📍 Surya Sen Colony Block-F, Siliguri, West Bengal</li>
+        </ul>
+        <a href="https://wa.me/918927956691" class="whatsapp-btn-footer" target="_blank">📱 WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- bottom footer -->
+    <div class="footer-bottom">
+      <p>© 2026 ASPIRANT. All Rights Reserved.</p>
+      <p>Designed with elegance.</p>
+      <div class="social-icons">
+        <span class="social-icon">f</span>
+        <span class="social-icon">ig</span>
+        <span class="social-icon">wa</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* ----- PREMIUM FOOTER STYLES (black/white/ash) ----- */
+.site-footer {
+  background-color: #0a0a0a; /* deep black */
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  padding: 3rem 0 1.5rem;
+  margin-top: 4rem;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* top row: 4 columns */
+.footer-top {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.5rem;
+}
+
+.footer-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  border-bottom: none;
+  text-transform: uppercase;
+}
+
+.brand-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #bbb;
+  margin-bottom: 0.8rem;
+}
+
+.tagline {
+  font-style: italic;
+  color: #aaa;
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #777;
+}
+
+/* two-column layout for categories (on larger screens) */
+.footer-links.two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+}
+
+.contact-info {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info li {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.whatsapp-btn-footer {
+  display: inline-block;
+  background-color: #2e2e2e; /* ash */
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: 1px solid #444;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.whatsapp-btn-footer:hover {
+  background-color: #0a0a0a;
+  border-color: #777;
+}
+
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+  margin: 2rem 0 1.5rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #1e1e1e;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+  cursor: default;
+  border: 1px solid #444;
+}
+
+.social-icon:hover {
+  background-color: #333;
+}
+
+/* ----- RESPONSIVE FOOTER ----- */
+@media (max-width: 1024px) {
+  .footer-top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-container {
+    padding: 0 1.5rem;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links.two-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-col {
+    text-align: center;
+  }
+  .contact-info li {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links.two-columns {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+</style>
+
+  <!-- EXTERNAL JAVASCRIPT (only for index.html) -->
+  <script src="script.js"></script>
+</body>
+</html>

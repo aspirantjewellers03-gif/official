@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASPIRANT · checkout</title>
+  <!-- Google Fonts (same as main site) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fafafa;
+      color: #1e1e1e;
+      line-height: 1.5;
+    }
+
+    /* ----- STICKY HEADER (only About Us & Contact) ----- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      padding: 1rem 2rem;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .main-nav ul {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      color: #f0f0f0;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .main-nav a:hover {
+      color: #bbbbbb;
+    }
+
+    /* ----- MARQUEE BAR (offer slider) ----- */
+    .marquee-bar {
+      background-color: #2e2e2e;
+      color: #ffffff;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #444;
+    }
+
+    .marquee-content {
+      font-size: 1rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .separator {
+      color: #aaaaaa;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    /* ----- BACK BUTTON ----- */
+    .back-button-container {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 1.5px solid #1e1e1e;
+      color: #1e1e1e;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* ----- MAIN TWO-COLUMN LAYOUT ----- */
+    .checkout-main {
+      max-width: 1400px;
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* ----- LEFT COLUMN – BILLING FORM ----- */
+    .billing-form {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eaeaea;
+    }
+
+    .billing-form h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      color: #2e2e2e;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      background: #fefefe;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #2e2e2e;
+      box-shadow: 0 0 0 3px rgba(46, 46, 46, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* ----- RIGHT COLUMN – ORDER DETAILS CARD ----- */
+    .order-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eaeaea;
+      margin-bottom: 2rem;
+    }
+
+    .order-card h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+
+    .product-summary {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .product-summary img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #f4f4f4;
+    }
+
+    .product-info h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .product-info p {
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .price-detail {
+      margin: 1rem 0;
+      padding: 1rem 0;
+      border-top: 1px dashed #ccc;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+    }
+
+    .qty-btn:hover {
+      background: #ddd;
+    }
+
+    .qty-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .total-amount {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0a0a0a;
+      margin-top: 1rem;
+      text-align: right;
+    }
+
+    /* ----- PAYMENT OPTIONS ----- */
+    .payment-section {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eaeaea;
+      margin-bottom: 2rem;
+    }
+
+    .payment-section h3 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 1.2rem;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+      cursor: pointer;
+    }
+
+    .payment-option input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #1e1e1e;
+    }
+
+    .upi-suboptions {
+      margin-left: 2rem;
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-left: 2px solid #eee;
+    }
+
+    .upi-suboptions .payment-option {
+      margin-bottom: 0.5rem;
+    }
+
+    /* ----- ORDER NOW BUTTON ----- */
+    .order-now-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .order-now-btn {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .order-now-btn:hover {
+      background-color: #0a0a0a;
+    }
+
+    /* ----- NO PRODUCT MESSAGE ----- */
+    .no-product-message {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 3rem;
+      text-align: center;
+      border: 1px solid #eaeaea;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      font-size: 1.3rem;
+      color: #777;
+    }
+
+    /* ----- FOOTER (exact copy from main site) ----- */
+    .site-footer {
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      border-bottom: none;
+      text-transform: uppercase;
+    }
+
+    .brand-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #bbb;
+      margin-bottom: 0.8rem;
+    }
+
+    .tagline {
+      font-style: italic;
+      color: #aaa;
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      transform: translateX(4px);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #777;
+    }
+
+    .footer-links.two-columns {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem 1rem;
+    }
+
+    .contact-info {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    .whatsapp-btn-footer {
+      display: inline-block;
+      background-color: #2e2e2e;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid #444;
+      transition: background-color 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .whatsapp-btn-footer:hover {
+      background-color: #0a0a0a;
+      border-color: #777;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #444, transparent);
+      margin: 2rem 0 1.5rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: #1e1e1e;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: background-color 0.2s;
+      cursor: default;
+      border: 1px solid #444;
+    }
+
+    .social-icon:hover {
+      background-color: #333;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 1024px) {
+      .checkout-main {
+        grid-template-columns: 1fr;
+      }
+      .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-container {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .main-nav ul {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .logo {
+        font-size: 1.6rem;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .product-summary {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+      .back-button-container {
+        padding: 0 1rem;
+      }
+      .checkout-main {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (only About Us & Contact) -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">ASPIRANT</div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MARQUEE OFFER SLIDER -->
+  <div class="marquee-bar">
+    <marquee behavior="scroll" direction="left" scrollamount="6" class="marquee-content">
+      <span>🔥 Limited Stock</span>
+      <span class="separator">•</span>
+      <span>💰 Big Deal Today</span>
+      <span class="separator">•</span>
+      <span>🚚 Free Delivery Available</span>
+      <span class="separator">•</span>
+      <span>⚡ Order Now</span>
+    </marquee>
+  </div>
+
+  <!-- BACK BUTTON -->
+  <div class="back-button-container">
+    <button class="back-btn" onclick="history.back()">← Back</button>
+  </div>
+
+  <!-- MAIN CHECKOUT SECTION (two columns) -->
+  <main class="checkout-main">
+    <!-- LEFT COLUMN – Billing Form (always visible) -->
+    <section class="billing-form">
+      <h2>Billing Details</h2>
+      <form id="billingForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" placeholder="e.g. Priya" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" placeholder="e.g. Sharma" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contact">Contact Number *</label>
+          <input type="tel" id="contact" placeholder="+91 98765 43210" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Gmail ID (optional)</label>
+          <input type="email" id="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="address">Full Address *</label>
+          <textarea id="address" placeholder="Street, locality, landmark..." required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input type="text" id="city" placeholder="e.g. Jaipur" required>
+          </div>
+          <div class="form-group">
+            <label for="state">State *</label>
+            <input type="text" id="state" placeholder="e.g. Rajasthan" required>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- RIGHT COLUMN – Order & Payment (will be populated dynamically) -->
+    <aside id="rightColumn">
+      <!-- Order Details Card (will be filled by JS) -->
+      <div class="order-card" id="orderCard">
+        <h2>Order Summary</h2>
+        <div class="product-summary" id="productSummary">
+          <!-- dynamic content -->
+        </div>
+
+        <div class="price-detail">
+          <div class="price-row">
+            <span>Price (per item)</span>
+            <span>₹<span id="pricePerItem">0</span></span>
+          </div>
+          <div class="price-row" id="gstRow">
+            <span>GST (12%)</span>
+            <span>₹<span id="gstAmount">0</span></span>
+          </div>
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="quantity-selector">
+          <span>Quantity:</span>
+          <div class="qty-btn" id="decreaseQty">−</div>
+          <span class="qty-value" id="qtyDisplay">1</span>
+          <div class="qty-btn" id="increaseQty">+</div>
+        </div>
+
+        <!-- Total Price -->
+        <div class="total-amount">
+          Total: ₹<span id="totalPrice">0</span>
+        </div>
+      </div>
+
+      <!-- Payment Options -->
+      <div class="payment-section" id="paymentSection">
+        <h3>Payment Method</h3>
+
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Online Payment"> Online Payment
+        </label>
+
+        <div class="payment-option">
+          <input type="radio" name="payment" value="UPI" id="upiRadio"> UPI Payment
+        </div>
+        <div class="upi-suboptions" id="upiSubOptions" style="display: none;">
+          <label class="payment-option">
+            <input type="radio" name="upiSub" value="Paytm"> Paytm
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="upiSub" value="Google Pay"> Google Pay
+          </label>
+        </div>
+
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery (COD)
+        </label>
+      </div>
+
+      <!-- Order Now Button -->
+      <div class="order-now-container" id="orderNowContainer">
+        <button class="order-now-btn" id="orderNowBtn">ORDER NOW</button>
+      </div>
+
+      <!-- No Product Message (hidden by default) -->
+      <div class="no-product-message" id="noProductMessage" style="display: none;">
+        No product selected. Please go back and choose a product.
+      </div>
+    </aside>
+  </main>
+
+  <!-- FOOTER (exact same as main site) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <h4 class="footer-logo">ASPIRANT</h4>
+          <p class="brand-desc">Luxury jewellery crafted for those who appreciate timeless elegance and modern sophistication.</p>
+          <p class="tagline">"Crafting elegance for every moment."</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="wish.html">Wishlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links two-columns">
+            <li><a href="404-page.html">Anklets</a></li>
+            <li><a href="category-bracelets-bangles.html">Bracelets & Bangles</a></li>
+            <li><a href="404-page.html">Bridal Set</a></li>
+            <li><a href="category-earring.html">Earring</a></li>
+            <li><a href="404-page.html">Engagement Ring</a></li>
+            <li><a href="404-page.html">Hair Jewelry</a></li>
+            <li><a href="category-jhumki.html">Jhumki</a></li>
+            <li><a href="404-page.html">Kids Jewelry</a></li>
+            <li><a href="404-page.html">Mens Jewelry</a></li>
+            <li><a href="category-necklace.html">Necklace</a></li>
+            <li><a href="404-page.html">Ring</a></li>
+            <li><a href="404-page.html">Spiritual</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="contact-info">
+             <li>📞 +91 8927956691</li>
+          <li>✉️ aspirantjewellers03@gmail.com</li>
+          <li>📍 Surya Sen Colony Block-F, Siliguri, West Bengal</li>
+          </ul>
+          <a href="https://wa.me/918927956691" class="whatsapp-btn-footer" target="_blank">📱 WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        <p>© 2026 ASPIRANT. All Rights Reserved.</p>
+        <p>Designed with elegance.</p>
+        <div class="social-icons">
+          <span class="social-icon">f</span>
+          <span class="social-icon">ig</span>
+          <span class="social-icon">wa</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // ---------- READ PRODUCT FROM localStorage ----------
+      let product = null;
+      try {
+        const stored = localStorage.getItem('selectedProduct');
+        if (stored) {
+          product = JSON.parse(stored);
+        }
+      } catch (e) {
+        console.warn('Failed to parse product from localStorage', e);
+      }
+
+      // If no product, hide order/payment elements and show message
+      if (!product) {
+        document.getElementById('orderCard').style.display = 'none';
+        document.getElementById('paymentSection').style.display = 'none';
+        document.getElementById('orderNowContainer').style.display = 'none';
+        document.getElementById('noProductMessage').style.display = 'block';
+        return; // stop further execution
+      }
+
+      // ---------- DOM ELEMENTS ----------
+      const productSummary = document.getElementById('productSummary');
+      const pricePerItemSpan = document.getElementById('pricePerItem');
+      const gstSpan = document.getElementById('gstAmount');
+      const totalSpan = document.getElementById('totalPrice');
+      const qtyDisplay = document.getElementById('qtyDisplay');
+      const decreaseBtn = document.getElementById('decreaseQty');
+      const increaseBtn = document.getElementById('increaseQty');
+      const upiRadio = document.getElementById('upiRadio');
+      const upiSubOptions = document.getElementById('upiSubOptions');
+      const paymentRadios = document.querySelectorAll('input[name="payment"]');
+      const upiSubRadios = document.querySelectorAll('input[name="upiSub"]');
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const contact = document.getElementById('contact');
+      const email = document.getElementById('email');
+      const address = document.getElementById('address');
+      const city = document.getElementById('city');
+      const state = document.getElementById('state');
+      const orderBtn = document.getElementById('orderNowBtn');
+
+      // ---------- POPULATE ORDER SUMMARY WITH PRODUCT DATA ----------
+      // Set product image, name, ID
+      productSummary.innerHTML = `
+        <img src="${product.image || 'https://picsum.photos/id/108/150/150'}" alt="${product.name}">
+        <div class="product-info">
+          <h3>${product.name}</h3>
+          <p>ID: ${product.id}</p>
+          <p>GST: 12%</p>
+        </div>
+      `;
+
+      // Price
+      const basePrice = product.price || 0;
+      pricePerItemSpan.textContent = basePrice.toLocaleString('en-IN');
+
+      // ---------- QUANTITY & TOTAL LOGIC ----------
+      let quantity = 1;
+      const GST_PERCENT = 12; // fixed 12% GST
+
+      function updatePrice() {
+        const subtotal = basePrice * quantity;
+        const gst = Math.round(subtotal * GST_PERCENT / 100);
+        const total = subtotal + gst;
+        qtyDisplay.textContent = quantity;
+        gstSpan.textContent = gst.toLocaleString('en-IN');
+        totalSpan.textContent = total.toLocaleString('en-IN');
+      }
+
+      decreaseBtn.addEventListener('click', () => {
+        if (quantity > 1) {
+          quantity--;
+          updatePrice();
+        }
+      });
+
+      increaseBtn.addEventListener('click', () => {
+        if (quantity < 5) {
+          quantity++;
+          updatePrice();
+        }
+      });
+
+      // Initial update
+      updatePrice();
+
+      // ---------- UPI SUB-OPTIONS TOGGLE ----------
+      upiRadio.addEventListener('change', function() {
+        if (this.checked) {
+          upiSubOptions.style.display = 'block';
+        }
+      });
+
+      paymentRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value !== 'UPI') {
+            upiSubOptions.style.display = 'none';
+          } else {
+            upiSubOptions.style.display = 'block';
+          }
+        });
+      });
+
+      // ---------- VALIDATION & WHATSAPP MESSAGE ----------
+      function getSelectedPayment() {
+        for (let radio of paymentRadios) {
+          if (radio.checked) {
+            if (radio.value === 'UPI') {
+              for (let sub of upiSubRadios) {
+                if (sub.checked) {
+                  return `UPI (${sub.value})`;
+                }
+              }
+              return 'UPI (not specified)';
+            }
+            return radio.value;
+          }
+        }
+        return null;
+      }
+
+      orderBtn.addEventListener('click', function() {
+        // Validate required fields
+        if (!firstName.value.trim() || !lastName.value.trim() || !contact.value.trim() || !address.value.trim() || !city.value.trim() || !state.value.trim()) {
+          alert('Please fill all required details before ordering.');
+          return;
+        }
+
+        // Validate payment method
+        const paymentMethod = getSelectedPayment();
+        if (!paymentMethod) {
+          alert('Please select a payment method.');
+          return;
+        }
+
+        // Prepare customer details
+        const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`;
+        const phone = contact.value.trim();
+        const emailVal = email.value.trim() || 'Not provided';
+        const addr = address.value.trim();
+        const cityVal = city.value.trim();
+        const stateVal = state.value.trim();
+
+        // Calculate current total
+        const subtotal = basePrice * quantity;
+        const gst = Math.round(subtotal * GST_PERCENT / 100);
+        const total = subtotal + gst;
+
+        // Build the WhatsApp message
+        const message = `Hello, I want to place an order.
+
+🛍 *Product Details:*
+Product Name: ${product.name}
+Product ID: ${product.id}
+Price: ₹${basePrice}
+Quantity: ${quantity}
+Total Amount: ₹${total}
+
+👤 *Customer Details:*
+Full Name: ${fullName}
+Phone: ${phone}
+Email: ${emailVal}
+Address: ${addr}
+City: ${cityVal}
+State: ${stateVal}
+
+💳 *Payment Method:* ${paymentMethod}
+
+Please confirm my order.`;
+
+        // Encode and open WhatsApp
+        const encoded = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/918927956691?text=${encoded}`;
+        window.open(whatsappURL, '_blank');
+
+        // Optional: clear localStorage after order (uncomment if desired)
+        // localStorage.removeItem('selectedProduct');
+      });
+
+    })();
+  </script>
+</body>
+</html>

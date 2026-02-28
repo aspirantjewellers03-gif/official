@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASPIRANT · premium jewellery</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts for a luxury feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- STICKY HEADER (black & white) -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">ASPIRANT</div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="wish.html">Wishlist(<span id="wishlist-count">0</span>)</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MARQUEE DISCOUNT BAR (ash background) -->
+  <div class="marquee-bar">
+    <marquee behavior="scroll" direction="left" scrollamount="6" class="marquee-content">
+      <span>🔥 Flat 20 % OFF Above 599 Shopping</span>
+      <span class="separator">•</span>
+      <span>🚚 Free Shipping In Siliguri</span>
+      <span class="separator">•</span>
+      <span>💎 Premium Collection Now Live</span>
+    </marquee>
+  </div>
+
+  <!-- MAIN HOMEPAGE CONTENT: CATEGORY GRID -->
+  <main>
+    <section class="category-section">
+      <h2 class="section-title">shop by category</h2>
+      <div class="category-grid">
+        <!-- 12 category cards – each with image, name, and view details button -->
+        <!-- 1. Anklets -->
+        <div class="category-card">
+          <img src="anklets.png" alt="Anklets" loading="lazy">
+          <h3>Anklets</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+        <!-- 2. Bracelets & Bangles -->
+        <div class="category-card">
+          <img src="bracelets.png" alt="Bracelets & Bangles" loading="lazy">
+          <h3>Bracelets & Bangles</h3>
+          <a href="category-bracelets-bangles.html" class="btn">View Details</a>
+        </div>
+        <!-- 3. Bridal Jewelry Set -->
+        <div class="category-card">
+          <img src="bridal jewellery.png" alt="Bridal Jewelry Set" loading="lazy">
+          <h3>Bridal Jewelry Set</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+        <!-- 4. Earring -->
+        <div class="category-card">
+          <img src="earring.png" alt="Earring" loading="lazy">
+          <h3>Earring</h3>
+          <a href="category-earring.html" class="btn">View Details</a>
+        </div>
+        <!-- 5. Engagement Ring -->
+        <div class="category-card">
+          <img src="engagement-ring.png" alt="Engagement Ring" loading="lazy">
+          <h3>Engagement Ring</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+        <!-- 6. Hair Jewelry -->
+        <div class="category-card">
+          <img src="hair-jewellery.png" alt="Hair Jewelry" loading="lazy">
+          <h3>Hair Jewelry</h3>
+          <a href="category-hair-jewelry.html" class="btn">View Details</a>
+        </div>
+        
+        <!-- 8. Kids Jewelry -->
+        <div class="category-card">
+          <img src="kids jewellery.png" alt="Kids Jewelry" loading="lazy">
+          <h3>Kids Jewelry</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+        <!-- 9. Mens Jewelry -->
+        <div class="category-card">
+          <img src="mans jewellery.png" alt="Mens Jewelry" loading="lazy">
+          <h3>Mens Jewelry</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+        <!-- 10. Necklace -->
+        <div class="category-card">
+          <img src="necklace.png" alt="Necklace" loading="lazy">
+          <h3>Necklace</h3>
+          <a href="category-necklace.html" class="btn">View Details</a>
+        </div>
+        <!-- 11. Ring -->
+        <div class="category-card">
+          <img src="ring.png" alt="Ring" loading="lazy">
+          <h3>Ring</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+        <!-- 12. Spiritual Jewelry -->
+        <div class="category-card">
+          <img src="spiritual jewellery.png" alt="Spiritual Jewelry" loading="lazy">
+          <h3>Spiritual Jewelry</h3>
+          <a href="404-page.html" class="btn">View Details</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FLOATING CATEGORY TOGGLE BUTTON (right side) -->
+  <div class="floating-toggle" id="floatingToggle">
+    <span id="toggleArrow">❯</span>
+  </div>
+
+  <!-- SIDE PANEL (hidden by default) – lists all 12 categories -->
+  <div class="category-panel" id="categoryPanel">
+    <div class="panel-header">
+      <h3>Categories</h3>
+      <button class="close-panel" id="closePanel">✕</button>
+    </div>
+    <ul class="panel-category-list">
+      <li><a href="404-page.html">Anklets</a></li>
+      <li><a href="category-bracelets-bangles.html">Bracelets & Bangles</a></li>
+      <li><a href="404-page.html">Bridal Jewelry Set</a></li>
+      <li><a href="category-earring.html">Earring</a></li>
+      <li><a href="404-page.html">Engagement Ring</a></li>
+      <li><a href="category-hair-jewelry.html">Hair Jewelry</a></li>
+     
+      <li><a href="404-page.html">Kids Jewelry</a></li>
+      <li><a href="404-page.html">Mens Jewelry</a></li>
+      <li><a href="category-necklace.html">Necklace</a></li>
+      <li><a href="404-page.html">Ring</a></li>
+      <li><a href="404-page.html">Spiritual Jewelry</a></li>
+    </ul>
+  </div>
+   
+  <!-- ===== PREMIUM FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- top footer: 4 columns (desktop) -->
+      <div class="footer-top">
+        <!-- COLUMN 1 - Brand Info -->
+        <div class="footer-col">
+          <h4 class="footer-logo">ASPIRANT</h4>
+          <p class="brand-desc">Luxury jewellery crafted for those who appreciate timeless elegance and modern sophistication.</p>
+          <p class="tagline">"Crafting elegance for every moment."</p>
+        </div>
+
+        <!-- COLUMN 2 - Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="wish.html">Wishlist</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 3 - Categories (will be hidden on mobile) -->
+        <div class="footer-col footer-categories">
+          <h4>Categories</h4>
+          <ul class="footer-links two-columns">
+            <li><a href="404-page.html">Anklets</a></li>
+            <li><a href="category-bracelets-bangles.html">Bracelets & Bangles</a></li>
+            <li><a href="404-page.html">Bridal Set</a></li>
+            <li><a href="category-earring.html">Earring</a></li>
+            <li><a href="404-page.html">Engagement Ring</a></li>
+            <li><a href="404-page.html">Hair Jewelry</a></li>
+           
+            <li><a href="404-page.html">Kids Jewelry</a></li>
+            <li><a href="404-page.html">Mens Jewelry</a></li>
+            <li><a href="category-necklace.html">Necklace</a></li>
+            <li><a href="404-page.html">Ring</a></li>
+            <li><a href="404-page.html">Spiritual</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 4 - Contact Details (without WhatsApp button) -->
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="contact-info">
+            <li class="btn"target="_blank">📞 +91 8927956691</li>
+            <li class="btn"target="_blank">✉️ aspirantjewellers03@gmail.com</li>
+            <li>📍 Surya Sen Colony Block-F, Siliguri, West Bengal</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="footer-divider"></div>
+
+      <!-- WhatsApp button row (below all footer content) -->
+      <div class="footer-whatsapp">
+        <a href="https://wa.me/918927956691" class="whatsapp-btn-footer" target="_blank">📱 WhatsApp</a>
+      </div>
+
+      <!-- bottom footer -->
+      <div class="footer-bottom">
+        <p>© 2026 ASPIRANT. All Rights Reserved.</p>
+        <p>Designed with elegance.</p>
+        <div class="social-icons">
+          <span class="social-icon">f</span>
+          <span class="social-icon">ig</span>
+          <span class="social-icon">wa</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EXTERNAL JAVASCRIPT (only for index.html) -->
+  <script src="script.js"></script>
+</body>
+</html>

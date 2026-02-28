@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASPIRANT · contact & pre‑booking</title>
+  <!-- Google Fonts (same as index) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Link to external style.css (contains updated header/footer) -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Page-specific styles for contact content -->
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fafafa;
+      color: #1e1e1e;
+      line-height: 1.5;
+    }
+
+    /* ----- MARQUEE BAR (exact copy from index) ----- */
+    .marquee-bar {
+      background-color: #2e2e2e;
+      color: #ffffff;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #444;
+    }
+
+    .marquee-content {
+      font-size: 1rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .separator {
+      color: #aaaaaa;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .back-button-container {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 1.5px solid #1e1e1e;
+      color: #1e1e1e;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* ----- CONTACT SECTION (two‑column layout) ----- */
+    .contact-section {
+      max-width: 1400px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* ----- LEFT CARD (company details) ----- */
+    .company-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2rem 2.5rem;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eaeaea;
+      transition: transform 0.2s ease;
+    }
+
+    .company-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .company-card h2 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.75rem;
+    }
+
+    .detail-item {
+      display: flex;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .detail-label {
+      min-width: 120px;
+      font-weight: 600;
+      color: #2e2e2e;
+    }
+
+    .detail-value {
+      color: #1e1e1e;
+      font-weight: 400;
+    }
+
+    .whatsapp-block {
+      margin: 2rem 0 1.8rem;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background-color: #2e2e2e;  /* ash */
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border: 1px solid #444;
+      transition: background-color 0.2s;
+    }
+
+    .whatsapp-btn:hover {
+      background-color: #0a0a0a;  /* black */
+      border-color: #0a0a0a;
+    }
+
+    .arrow-hint {
+      margin-top: 2rem;
+      font-style: italic;
+      color: #4a4a4a;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .arrow-hint span {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    /* ----- RIGHT CARD (enquiry form) ----- */
+    .form-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2rem 2.5rem;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eaeaea;
+    }
+
+    .form-card h2 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.75rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+      color: #2e2e2e;
+      font-size: 0.95rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      background-color: #fefefe;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #2e2e2e;
+      box-shadow: 0 0 0 3px rgba(46, 46, 46, 0.1);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid transparent;
+    }
+
+    .btn-reset {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+
+    .btn-reset:hover {
+      background-color: #f1b0b7;
+    }
+
+    .btn-submit {
+      background-color: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+
+    .btn-submit:hover {
+      background-color: #b8dfc2;
+    }
+
+    .icon {
+      font-size: 1.2rem;
+    }
+
+    /* ----- RESPONSIVE (contact grid only) ----- */
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .company-card, .form-card {
+        padding: 1.5rem;
+      }
+      .detail-item {
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+      .detail-label {
+        min-width: auto;
+        margin-bottom: 0.2rem;
+      }
+      .button-group {
+        flex-direction: column;
+      }
+      .btn {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-section {
+        padding: 0 1rem;
+      }
+      .company-card h2, .form-card h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (updated with hamburger) -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">ASPIRANT</div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="wish.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MARQUEE DISCOUNT BAR (exact copy from index) -->
+  <div class="marquee-bar">
+    <marquee behavior="scroll" direction="left" scrollamount="6" class="marquee-content">
+      <span>🔥 Flat 20 % OFF Above 599 Shopping</span>
+      <span class="separator">•</span>
+      <span>🚚 Free Shipping In Siliguri</span>
+      <span class="separator">•</span>
+      <span>💎 Premium Collection Now Live</span>
+    </marquee>
+  </div>
+
+  <!-- BACK BUTTON -->
+  <div class="back-button-container">
+    <button class="back-btn" onclick="history.back()">← Back</button>
+  </div>
+
+  <!-- MAIN CONTENT: two-column contact & enquiry -->
+  <main class="contact-section">
+    <div class="contact-grid">
+      <!-- LEFT: company details -->
+      <div class="company-card">
+        <h2>reach us</h2>
+        <div class="detail-item">
+          <span class="detail-label">Owner:</span>
+          <span class="detail-value">Rohit Barman/ Nayan Mandal/ Surojit Das/ Samrat Roy</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Company:</span>
+          <span class="detail-value">ASPIRANT</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Address:</span>
+          <span class="detail-value">Surya Sen Colony Block-F, Siliguri, West Bengal</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone:</span>
+          <span class="detail-value">+91 8927956691</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Email:</span>
+          <span class="detail-value">aspirantjewellers03@gmail.com</span>
+        </div>
+
+        <!-- WhatsApp block (kept for desktop; on mobile it will stack) -->
+        <div class="whatsapp-block">
+          <a href="https://wa.me/918927956691" target="_blank" class="whatsapp-btn">
+            <span class="icon">📱</span> WhatsApp +91 8927956691
+          </a>
+        </div>
+
+        <!-- hint arrow pointing to form -->
+        <div class="arrow-hint">
+          <span>→</span> If you have any query, please fill the form or WhatsApp
+        </div>
+      </div>
+
+      <!-- RIGHT: enquiry form -->
+      <div class="form-card">
+        <h2>enquiry form</h2>
+        <form>
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" placeholder="e.g. Priya Sharma">
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" placeholder="Street, city, pincode..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 .....">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your email@gmail.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Enquiry Message</label>
+            <textarea id="message" name="message" placeholder="I'm interested in..."></textarea>
+          </div>
+
+          <div class="button-group">
+            <button type="reset" class="btn btn-reset">
+              <span class="icon">↻</span> Clear Form
+            </button>
+            <button type="submit" class="btn btn-submit">
+              <span class="icon">✓</span> Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== PREMIUM FOOTER (updated) ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- top footer: 4 columns (desktop) -->
+      <div class="footer-top">
+        <!-- COLUMN 1 - Brand Info -->
+        <div class="footer-col">
+          <h4 class="footer-logo">ASPIRANT</h4>
+          <p class="brand-desc">Luxury jewellery crafted for those who appreciate timeless elegance and modern sophistication.</p>
+          <p class="tagline">"Crafting elegance for every moment."</p>
+        </div>
+
+        <!-- COLUMN 2 - Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="wish.html">Wishlist</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 3 - Categories (will be hidden on mobile) -->
+        <div class="footer-col footer-categories">
+          <h4>Categories</h4>
+          <ul class="footer-links two-columns">
+            <li><a href="404-page.html">Anklets</a></li>
+            <li><a href="category-bracelets-bangles.html">Bracelets & Bangles</a></li>
+            <li><a href="404-page.html">Bridal Set</a></li>
+            <li><a href="category-earring.html">Earring</a></li>
+            <li><a href="404-page.html">Engagement Ring</a></li>
+            <li><a href="404-page.html">Hair Jewelry</a></li>
+            
+            <li><a href="404-page.html">Kids Jewelry</a></li>
+            <li><a href="404-page.html">Mens Jewelry</a></li>
+            <li><a href="category-necklace.html">Necklace</a></li>
+            <li><a href="404-page.html">Ring</a></li>
+            <li><a href="404-page.html">Spiritual</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 4 - Contact Details (without WhatsApp button) -->
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="contact-info">
+            <li>📞 +91 8927956691</li>
+            <li>✉️ aspirantjewellers03@gmail.com</li>
+            <li>📍 Surya Sen Colony Block-F, Siliguri, West Bengal</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="footer-divider"></div>
+
+      <!-- WhatsApp button row (below all footer content) -->
+      <div class="footer-whatsapp">
+        <a href="https://wa.me/918927956691" class="whatsapp-btn-footer" target="_blank">📱 WhatsApp</a>
+      </div>
+
+      <!-- bottom footer -->
+      <div class="footer-bottom">
+        <p>© 2026 ASPIRANT. All Rights Reserved.</p>
+        <p>Designed with elegance.</p>
+        <div class="social-icons">
+          <span class="social-icon">f</span>
+          <span class="social-icon">ig</span>
+          <span class="social-icon">wa</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+   <script>
+    // ---------- Hamburger menu toggle (new for mobile) ----------
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('mainNav');
+
+  if (hamburger && mainNav) {
+    hamburger.addEventListener('click', function() {
+      mainNav.classList.toggle('open');
+      // Optional: change hamburger icon (e.g., to "✕" when open)
+      this.textContent = mainNav.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Close menu when a link is clicked (optional, improves UX)
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        hamburger.textContent = '☰';
+      });
+    });
+  }
+
+  </script>
+  <!-- EXTERNAL JAVASCRIPT (contains hamburger toggle, wishlist count, etc.) -->
+  <script src="script.js"></script>
+</body>
+</html>

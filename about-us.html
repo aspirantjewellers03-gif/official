@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASPIRANT · about us</title>
+  <!-- Google Fonts (same as index) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Link to external style.css (contains updated header/footer) -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Page-specific styles for about content -->
+  <style>
+    /* Back button */
+    .back-button-container {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 1.5px solid #1e1e1e;
+      color: #1e1e1e;
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    /* About section */
+    .about-section {
+      max-width: 1400px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #1e1e1e;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 2px;
+      background-color: #2e2e2e;
+      margin: 1rem auto 0;
+    }
+
+    /* Grid for the 4 cards */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .about-card {
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      padding-bottom: 1.8rem;
+      border: 1px solid #eaeaea;
+    }
+
+    .about-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+
+    .about-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .about-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.5rem;
+      color: #1e1e1e;
+      letter-spacing: 1px;
+    }
+
+    .about-card p {
+      font-size: 0.95rem;
+      color: #4a4a4a;
+      padding: 0 1.2rem;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* Responsive about grid */
+    @media (max-width: 1024px) {
+      .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+      }
+      .about-card img {
+        height: 200px;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-card h3 {
+        font-size: 1.3rem;
+      }
+      .about-card p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (updated with hamburger) -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">ASPIRANT</div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="wish.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BACK BUTTON -->
+  <div class="back-button-container">
+    <button class="back-btn" onclick="history.back()">← Back</button>
+  </div>
+
+  <!-- MAIN CONTENT: 4 image + title + description sections -->
+  <main>
+    <section class="about-section">
+      <h2 class="section-title">We Are Aspirant</h2>
+      <div class="about-grid">
+        <!-- 1. Rohit Barman(CEO) -->
+        <div class="about-card">
+          <img src="rohit.png" alt="Our Story" loading="lazy">
+          <h3>ROHIT BARMAN</h3><h2>(Team Leader)</h2>
+          <p>Leads the company's vision, strategy, and overall operations. Focused on growth, Innovation and building a strong and trusted brand presence.</p>
+        </div>
+        <!-- 2. Nayan Mandal -->
+        <div class="about-card">
+          <img src="nayan.png" alt="Our Mission" loading="lazy">
+          <h3>NAYAN MANDAL</h3><h2>(Chief Director)</h2>
+          <p>Overses strategic planning, Ensures smooth coordination and maintains operational excellence across the organization.</p>
+        </div>
+        <!-- 3. Surojit Das -->
+        <div class="about-card">
+          <img src="surojit.png" alt="Our Craftsmanship" loading="lazy">
+          <h3>SUROJIT DAS</h3><h2>(Marketplace Management Head)</h2>
+          <p>Handles product listing,pricing, and online marketplace operations.Ensures smooth digital performance and customer satisfaction.</p>
+        </div>
+        <!-- 4. Samrat Roy -->
+        <div class="about-card">
+          <img src="samrat.png" alt="Our Vision" loading="lazy">
+          <h3>SAMRAT ROY</h3><h2>(Project Manager)</h2>
+          <p>Manages project Execution, timelines, and workflow. Ensures tasks are completed efficiently with high quality standards.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== PREMIUM FOOTER (updated) ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- top footer: 4 columns (desktop) -->
+      <div class="footer-top">
+        <!-- COLUMN 1 - Brand Info -->
+        <div class="footer-col">
+          <h4 class="footer-logo">ASPIRANT</h4>
+          <p class="brand-desc">Luxury jewellery crafted for those who appreciate timeless elegance and modern sophistication.</p>
+          <p class="tagline">"Crafting elegance for every moment."</p>
+        </div>
+
+        <!-- COLUMN 2 - Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="wish.html">Wishlist</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 3 - Categories (will be hidden on mobile) -->
+        <div class="footer-col footer-categories">
+          <h4>Categories</h4>
+          <ul class="footer-links two-columns">
+            <li><a href="404-page.html">Anklets</a></li>
+            <li><a href="category-bracelets-bangles.html">Bracelets & Bangles</a></li>
+            <li><a href="404-page.html">Bridal Set</a></li>
+            <li><a href="category-earring.html">Earring</a></li>
+            <li><a href="404-page.html">Engagement Ring</a></li>
+            <li><a href="404-page.html">Hair Jewelry</a></li>
+            
+            <li><a href="404-page.html">Kids Jewelry</a></li>
+            <li><a href="404-page.html">Mens Jewelry</a></li>
+            <li><a href="category-necklace.html">Necklace</a></li>
+            <li><a href="404-page.html">Ring</a></li>
+            <li><a href="404-page.html">Spiritual</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 4 - Contact Details (without WhatsApp button) -->
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="contact-info">
+            <li>📞 +91 8927956691</li>
+            <li>✉️ aspirantjewellers03@gmail.com</li>
+            <li>📍 Surya Sen Colony Block-F, Siliguri, West Bengal</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="footer-divider"></div>
+
+      <!-- WhatsApp button row (below all footer content) -->
+      <div class="footer-whatsapp">
+        <a href="https://wa.me/918927956691" class="whatsapp-btn-footer" target="_blank">📱 WhatsApp</a>
+      </div>
+
+      <!-- bottom footer -->
+      <div class="footer-bottom">
+        <p>© 2026 ASPIRANT. All Rights Reserved.</p>
+        <p>Designed with elegance.</p>
+        <div class="social-icons">
+          <span class="social-icon">f</span>
+          <span class="social-icon">ig</span>
+          <span class="social-icon">wa</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Hamburger menu toggle (new for mobile) ----------
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('mainNav');
+
+  if (hamburger && mainNav) {
+    hamburger.addEventListener('click', function() {
+      mainNav.classList.toggle('open');
+      // Optional: change hamburger icon (e.g., to "✕" when open)
+      this.textContent = mainNav.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Close menu when a link is clicked (optional, improves UX)
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        hamburger.textContent = '☰';
+      });
+    });
+  }
+
+  </script>
+  <!-- EXTERNAL JAVASCRIPT (contains hamburger toggle, wishlist count, etc.) -->
+  <script src="script.js"></script>
+</body>
+</html>
