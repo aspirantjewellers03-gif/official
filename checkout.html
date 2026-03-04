@@ -528,8 +528,8 @@
       height: 100%;
       border-radius: 50%;
       background: conic-gradient(
-        #f5d742 0deg 45deg,   /* segment 1 */
-        #e8b56e 45deg 90deg,  /* segment 2 */
+        #f5d742 0deg 45deg,
+        #e8b56e 45deg 90deg,
         #d9a066 90deg 135deg,
         #ca8b5e 135deg 180deg,
         #bb764d 180deg 225deg,
@@ -1027,8 +1027,6 @@
         if (reward.text === 'Buy One Get One Free') incrementBOGO();
 
         // Simulate wheel spin (rotate many times and stop at a "random" segment)
-        // We'll map reward to an angle (segment 0-7) but for simplicity we just show result after spin.
-        // To keep UX smooth, we rotate at least 5 full turns.
         const extraTurns = 5;
         const randomDegree = extraTurns * 360 + Math.floor(Math.random() * 360);
         wheel.style.transition = 'transform 3s cubic-bezier(0.25, 0.1, 0.15, 1)';
@@ -1120,9 +1118,7 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      // ========== MODIFY ORDER NOW TO INCLUDE SPIN REWARD ==========
-      // (preserve original logic, just add reward line)
-      const originalOrderClick = orderBtn.onclick;
+      // ========== MODIFY ORDER NOW TO INCLUDE SPIN REWARD & GST ==========
       orderBtn.addEventListener('click', function(e) {
         // Validate payment method
         const paymentMethod = getSelectedPayment();
@@ -1131,7 +1127,7 @@
           return;
         }
 
-        // Calculate total
+        // Calculate total (already have quantity, basePrice)
         const subtotal = basePrice * quantity;
         const gst = Math.round(subtotal * GST_PERCENT / 100);
         const total = subtotal + gst;
@@ -1150,6 +1146,7 @@ Product Name: ${product.name}
 Product ID: ${product.id}
 Price: ₹${basePrice}
 Quantity: ${quantity}
+GST (12%): ₹${gst}
 ${rewardLine}Total Amount: ₹${total}
 
 💳 *Payment Method:* ${paymentMethod}
@@ -1160,11 +1157,7 @@ Please confirm my order.`;
         const whatsappURL = `https://wa.me/918927956691?text=${encoded}`;
         window.open(whatsappURL, '_blank');
 
-        // Clear spin data after order (optional)
-        // localStorage.removeItem('spinUsed');
-        // localStorage.removeItem('spinReward');
-        // (keep if you want to preserve for this session, but spec says clear)
-        // We'll clear so next product forces new spin.
+        // Clear spin data after order (so next product forces new spin)
         localStorage.removeItem('spinUsed');
         localStorage.removeItem('spinReward');
       });
