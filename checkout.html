@@ -120,80 +120,15 @@
       color: #ffffff;
     }
 
-    /* ----- MAIN TWO-COLUMN LAYOUT ----- */
+    /* ----- MAIN SINGLE-COLUMN LAYOUT (after removing billing) ----- */
     .checkout-main {
-      max-width: 1400px;
+      max-width: 800px;        /* narrower, centred */
       margin: 2rem auto 4rem;
       padding: 0 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      display: block;           /* single column */
     }
 
-    /* ----- LEFT COLUMN – BILLING FORM ----- */
-    .billing-form {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-      border: 1px solid #eaeaea;
-    }
-
-    .billing-form h2 {
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.5rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.3rem;
-      font-weight: 500;
-      color: #2e2e2e;
-      font-size: 0.9rem;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      background: #fefefe;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #2e2e2e;
-      box-shadow: 0 0 0 3px rgba(46, 46, 46, 0.1);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    /* ----- RIGHT COLUMN – ORDER DETAILS CARD ----- */
+    /* ----- ORDER DETAILS CARD ----- */
     .order-card {
       background: #ffffff;
       border-radius: 24px;
@@ -536,9 +471,6 @@
 
     /* ----- RESPONSIVE ----- */
     @media (max-width: 1024px) {
-      .checkout-main {
-        grid-template-columns: 1fr;
-      }
       .footer-top {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -556,9 +488,6 @@
       }
       .logo {
         font-size: 1.6rem;
-      }
-      .form-row {
-        grid-template-columns: 1fr;
       }
       .product-summary {
         flex-direction: column;
@@ -614,120 +543,74 @@
     <button class="back-btn" onclick="history.back()">← Back</button>
   </div>
 
-  <!-- MAIN CHECKOUT SECTION (two columns) -->
+  <!-- MAIN CHECKOUT SECTION (now only order & payment) -->
   <main class="checkout-main">
-    <!-- LEFT COLUMN – Billing Form (always visible) -->
-    <section class="billing-form">
-      <h2>Billing Details</h2>
-      <form id="billingForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name *</label>
-            <input type="text" id="firstName" placeholder="e.g. Priya" required>
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name *</label>
-            <input type="text" id="lastName" placeholder="e.g. Sharma" required>
-          </div>
-        </div>
+    <!-- Order Details Card (will be filled by JS) -->
+    <div class="order-card" id="orderCard">
+      <h2>Order Summary</h2>
+      <div class="product-summary" id="productSummary">
+        <!-- dynamic content -->
+      </div>
 
-        <div class="form-group">
-          <label for="contact">Contact Number *</label>
-          <input type="tel" id="contact" placeholder="+91 98765 43210" required>
+      <div class="price-detail">
+        <div class="price-row">
+          <span>Price (per item)</span>
+          <span>₹<span id="pricePerItem">0</span></span>
         </div>
-
-        <div class="form-group">
-          <label for="email">Gmail ID (optional)</label>
-          <input type="email" id="email" placeholder="you@example.com">
-        </div>
-
-        <div class="form-group">
-          <label for="address">Full Address *</label>
-          <textarea id="address" placeholder="Street, locality, landmark..." required></textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="city">City *</label>
-            <input type="text" id="city" placeholder="e.g. Jaipur" required>
-          </div>
-          <div class="form-group">
-            <label for="state">State *</label>
-            <input type="text" id="state" placeholder="e.g. Rajasthan" required>
-          </div>
-        </div>
-      </form>
-    </section>
-
-    <!-- RIGHT COLUMN – Order & Payment (will be populated dynamically) -->
-    <aside id="rightColumn">
-      <!-- Order Details Card (will be filled by JS) -->
-      <div class="order-card" id="orderCard">
-        <h2>Order Summary</h2>
-        <div class="product-summary" id="productSummary">
-          <!-- dynamic content -->
-        </div>
-
-        <div class="price-detail">
-          <div class="price-row">
-            <span>Price (per item)</span>
-            <span>₹<span id="pricePerItem">0</span></span>
-          </div>
-          <div class="price-row" id="gstRow">
-            <span>GST (12%)</span>
-            <span>₹<span id="gstAmount">0</span></span>
-          </div>
-        </div>
-
-        <!-- Quantity Selector -->
-        <div class="quantity-selector">
-          <span>Quantity:</span>
-          <div class="qty-btn" id="decreaseQty">−</div>
-          <span class="qty-value" id="qtyDisplay">1</span>
-          <div class="qty-btn" id="increaseQty">+</div>
-        </div>
-
-        <!-- Total Price -->
-        <div class="total-amount">
-          Total: ₹<span id="totalPrice">0</span>
+        <div class="price-row" id="gstRow">
+          <span>GST (12%)</span>
+          <span>₹<span id="gstAmount">0</span></span>
         </div>
       </div>
 
-      <!-- Payment Options -->
-      <div class="payment-section" id="paymentSection">
-        <h3>Payment Method</h3>
+      <!-- Quantity Selector -->
+      <div class="quantity-selector">
+        <span>Quantity:</span>
+        <div class="qty-btn" id="decreaseQty">−</div>
+        <span class="qty-value" id="qtyDisplay">1</span>
+        <div class="qty-btn" id="increaseQty">+</div>
+      </div>
 
+      <!-- Total Price -->
+      <div class="total-amount">
+        Total: ₹<span id="totalPrice">0</span>
+      </div>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="payment-section" id="paymentSection">
+      <h3>Payment Method</h3>
+
+      <label class="payment-option">
+        <input type="radio" name="payment" value="Online Payment"> Online Payment
+      </label>
+
+      <div class="payment-option">
+        <input type="radio" name="payment" value="UPI" id="upiRadio"> UPI Payment
+      </div>
+      <div class="upi-suboptions" id="upiSubOptions" style="display: none;">
         <label class="payment-option">
-          <input type="radio" name="payment" value="Online Payment"> Online Payment
+          <input type="radio" name="upiSub" value="Paytm"> Paytm
         </label>
-
-        <div class="payment-option">
-          <input type="radio" name="payment" value="UPI" id="upiRadio"> UPI Payment
-        </div>
-        <div class="upi-suboptions" id="upiSubOptions" style="display: none;">
-          <label class="payment-option">
-            <input type="radio" name="upiSub" value="Paytm"> Paytm
-          </label>
-          <label class="payment-option">
-            <input type="radio" name="upiSub" value="Google Pay"> Google Pay
-          </label>
-        </div>
-
         <label class="payment-option">
-          <input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery (COD)
+          <input type="radio" name="upiSub" value="Google Pay"> Google Pay
         </label>
       </div>
 
-      <!-- Order Now Button -->
-      <div class="order-now-container" id="orderNowContainer">
-        <button class="order-now-btn" id="orderNowBtn">ORDER NOW</button>
-      </div>
+      <label class="payment-option">
+        <input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery (COD)
+      </label>
+    </div>
 
-      <!-- No Product Message (hidden by default) -->
-      <div class="no-product-message" id="noProductMessage" style="display: none;">
-        No product selected. Please go back and choose a product.
-      </div>
-    </aside>
+    <!-- Order Now Button -->
+    <div class="order-now-container" id="orderNowContainer">
+      <button class="order-now-btn" id="orderNowBtn">ORDER NOW</button>
+    </div>
+
+    <!-- No Product Message (hidden by default) -->
+    <div class="no-product-message" id="noProductMessage" style="display: none;">
+      No product selected. Please go back and choose a product.
+    </div>
   </main>
 
   <!-- FOOTER (exact same as main site) -->
@@ -822,17 +705,9 @@
       const upiSubOptions = document.getElementById('upiSubOptions');
       const paymentRadios = document.querySelectorAll('input[name="payment"]');
       const upiSubRadios = document.querySelectorAll('input[name="upiSub"]');
-      const firstName = document.getElementById('firstName');
-      const lastName = document.getElementById('lastName');
-      const contact = document.getElementById('contact');
-      const email = document.getElementById('email');
-      const address = document.getElementById('address');
-      const city = document.getElementById('city');
-      const state = document.getElementById('state');
       const orderBtn = document.getElementById('orderNowBtn');
 
       // ---------- POPULATE ORDER SUMMARY WITH PRODUCT DATA ----------
-      // Set product image, name, ID
       productSummary.innerHTML = `
         <img src="${product.image || 'https://picsum.photos/id/108/150/150'}" alt="${product.name}">
         <div class="product-info">
@@ -842,13 +717,12 @@
         </div>
       `;
 
-      // Price
       const basePrice = product.price || 0;
       pricePerItemSpan.textContent = basePrice.toLocaleString('en-IN');
 
       // ---------- QUANTITY & TOTAL LOGIC ----------
       let quantity = 1;
-      const GST_PERCENT = 12; // fixed 12% GST
+      const GST_PERCENT = 12;
 
       function updatePrice() {
         const subtotal = basePrice * quantity;
@@ -873,7 +747,6 @@
         }
       });
 
-      // Initial update
       updatePrice();
 
       // ---------- UPI SUB-OPTIONS TOGGLE ----------
@@ -893,7 +766,7 @@
         });
       });
 
-      // ---------- VALIDATION & WHATSAPP MESSAGE ----------
+      // ---------- WHATSAPP MESSAGE (only product + payment) ----------
       function getSelectedPayment() {
         for (let radio of paymentRadios) {
           if (radio.checked) {
@@ -912,33 +785,19 @@
       }
 
       orderBtn.addEventListener('click', function() {
-        // Validate required fields
-        if (!firstName.value.trim() || !lastName.value.trim() || !contact.value.trim() || !address.value.trim() || !city.value.trim() || !state.value.trim()) {
-          alert('Please fill all required details before ordering.');
-          return;
-        }
-
-        // Validate payment method
+        // Validate payment method only
         const paymentMethod = getSelectedPayment();
         if (!paymentMethod) {
           alert('Please select a payment method.');
           return;
         }
 
-        // Prepare customer details
-        const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`;
-        const phone = contact.value.trim();
-        const emailVal = email.value.trim() || 'Not provided';
-        const addr = address.value.trim();
-        const cityVal = city.value.trim();
-        const stateVal = state.value.trim();
-
         // Calculate current total
         const subtotal = basePrice * quantity;
         const gst = Math.round(subtotal * GST_PERCENT / 100);
         const total = subtotal + gst;
 
-        // Build the WhatsApp message
+        // Build WhatsApp message with product details only
         const message = `Hello, I want to place an order.
 
 🛍 *Product Details:*
@@ -948,14 +807,6 @@ Price: ₹${basePrice}
 Quantity: ${quantity}
 Total Amount: ₹${total}
 
-👤 *Customer Details:*
-Full Name: ${fullName}
-Phone: ${phone}
-Email: ${emailVal}
-Address: ${addr}
-City: ${cityVal}
-State: ${stateVal}
-
 💳 *Payment Method:* ${paymentMethod}
 
 Please confirm my order.`;
@@ -964,9 +815,6 @@ Please confirm my order.`;
         const encoded = encodeURIComponent(message);
         const whatsappURL = `https://wa.me/918927956691?text=${encoded}`;
         window.open(whatsappURL, '_blank');
-
-        // Optional: clear localStorage after order (uncomment if desired)
-        // localStorage.removeItem('selectedProduct');
       });
 
     })();
