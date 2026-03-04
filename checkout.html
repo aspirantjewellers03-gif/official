@@ -1160,6 +1160,11 @@ Please confirm my order.`;
         // Clear spin data after order (so next product forces new spin)
         localStorage.removeItem('spinUsed');
         localStorage.removeItem('spinReward');
+
+        // ---- ADDED: Refresh the page after a short delay to exit checkout ----
+        setTimeout(() => {
+          location.reload();
+        }, 1000); // 1 second delay to allow WhatsApp to open
       });
 
     })();
