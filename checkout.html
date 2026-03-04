@@ -122,10 +122,10 @@
 
     /* ----- MAIN SINGLE-COLUMN LAYOUT (after removing billing) ----- */
     .checkout-main {
-      max-width: 800px;        /* narrower, centred */
+      max-width: 800px;
       margin: 2rem auto 4rem;
       padding: 0 2rem;
-      display: block;           /* single column */
+      display: block;
     }
 
     /* ----- ORDER DETAILS CARD ----- */
@@ -225,6 +225,18 @@
       color: #0a0a0a;
       margin-top: 1rem;
       text-align: right;
+    }
+
+    /* ----- SPIN REWARD DISPLAY (added below order summary) ----- */
+    .spin-reward-display {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fbf3e0;
+      border-radius: 16px;
+      border: 1px solid #e2cfa5;
+      text-align: center;
+      font-weight: 600;
+      color: #8b6f3c;
     }
 
     /* ----- PAYMENT OPTIONS ----- */
@@ -469,44 +481,158 @@
       background-color: #333;
     }
 
-    /* ----- RESPONSIVE ----- */
-    @media (max-width: 1024px) {
-      .footer-top {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* ===== SPIN WHEEL MODAL STYLES (premium, jewellery theme) ===== */
+    .spin-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.3s;
+    }
+
+    .spin-modal {
+      background: #fffcf5;
+      border-radius: 40px;
+      padding: 2rem 2rem 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+      border: 1px solid #e9d6b0;
+      text-align: center;
+      position: relative;
+    }
+
+    .spin-modal h2 {
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: #b08c4b;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      font-family: 'Inter', serif;
+    }
+
+    .wheel-container {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        #f5d742 0deg 45deg,   /* segment 1 */
+        #e8b56e 45deg 90deg,  /* segment 2 */
+        #d9a066 90deg 135deg,
+        #ca8b5e 135deg 180deg,
+        #bb764d 180deg 225deg,
+        #ac613d 225deg 270deg,
+        #9d4c2c 270deg 315deg,
+        #8e371c 315deg 360deg
+      );
+      border: 6px solid #d4af37;
+      box-shadow: 0 0 0 4px #faf0da, 0 20px 30px rgba(0,0,0,0.2);
+      transition: transform 3s cubic-bezier(0.25, 0.1, 0.15, 1);
+      position: relative;
+    }
+
+    .wheel-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px; height: 70px;
+      background: #faf0da;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #d4af37;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 10;
+      font-weight: 700;
+      color: #8b6f3c;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .wheel-center:hover { background: #f5e5c8; }
+    .wheel-center.disabled { opacity: 0.5; pointer-events: none; }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -10px; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 30px solid #b08c4b;
+      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+      z-index: 20;
+    }
+
+    .spin-result {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      margin: 1.5rem 0 0.5rem;
+      min-height: 3rem;
+    }
+
+    .close-modal-btn {
+      background: #d4af37;
+      border: none;
+      color: #1e1e1e;
+      padding: 0.8rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      border: 1px solid #b38f40;
+      transition: background 0.2s;
+    }
+    .close-modal-btn:hover { background: #c6a23a; }
+
+    .limited-text {
+      font-size: 0.8rem;
+      color: #a17f4a;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* simple confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1001;
     }
 
     @media (max-width: 640px) {
-      .header-container {
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-      .main-nav ul {
-        gap: 1.5rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .logo {
-        font-size: 1.6rem;
-      }
-      .product-summary {
-        flex-direction: column;
-        text-align: center;
-      }
-      .footer-top {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-      }
-      .back-button-container {
-        padding: 0 1rem;
-      }
-      .checkout-main {
-        padding: 0 1rem;
-      }
+      .wheel-container { width: 220px; height: 220px; }
+      .spin-modal { padding: 1.5rem; }
+    }
+
+    /* responsive footer etc unchanged */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .header-container { flex-direction: column; gap: 0.75rem; }
+      .main-nav ul { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+      .logo { font-size: 1.6rem; }
+      .product-summary { flex-direction: column; text-align: center; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .back-button-container { padding: 0 1rem; }
+      .checkout-main { padding: 0 1rem; }
     }
   </style>
 </head>
@@ -543,14 +669,12 @@
     <button class="back-btn" onclick="history.back()">← Back</button>
   </div>
 
-  <!-- MAIN CHECKOUT SECTION (now only order & payment) -->
+  <!-- MAIN CHECKOUT SECTION (order & payment) -->
   <main class="checkout-main">
-    <!-- Order Details Card (will be filled by JS) -->
+    <!-- Order Details Card -->
     <div class="order-card" id="orderCard">
       <h2>Order Summary</h2>
-      <div class="product-summary" id="productSummary">
-        <!-- dynamic content -->
-      </div>
+      <div class="product-summary" id="productSummary"></div>
 
       <div class="price-detail">
         <div class="price-row">
@@ -575,16 +699,17 @@
       <div class="total-amount">
         Total: ₹<span id="totalPrice">0</span>
       </div>
+
+      <!-- Spin Reward will be displayed here -->
+      <div id="spinRewardDisplay" class="spin-reward-display" style="display: none;"></div>
     </div>
 
     <!-- Payment Options -->
     <div class="payment-section" id="paymentSection">
       <h3>Payment Method</h3>
-
       <label class="payment-option">
         <input type="radio" name="payment" value="Online Payment"> Online Payment
       </label>
-
       <div class="payment-option">
         <input type="radio" name="payment" value="UPI" id="upiRadio"> UPI Payment
       </div>
@@ -596,7 +721,6 @@
           <input type="radio" name="upiSub" value="Google Pay"> Google Pay
         </label>
       </div>
-
       <label class="payment-option">
         <input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery (COD)
       </label>
@@ -607,13 +731,13 @@
       <button class="order-now-btn" id="orderNowBtn">ORDER NOW</button>
     </div>
 
-    <!-- No Product Message (hidden by default) -->
+    <!-- No Product Message -->
     <div class="no-product-message" id="noProductMessage" style="display: none;">
       No product selected. Please go back and choose a product.
     </div>
   </main>
 
-  <!-- FOOTER (exact same as main site) -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-top">
@@ -671,6 +795,24 @@
     </div>
   </footer>
 
+  <!-- SPIN WHEEL MODAL (hidden by default) -->
+  <div id="spinModalOverlay" class="spin-modal-overlay" style="display: none;">
+    <div class="spin-modal">
+      <h2>✨ SPIN & GET EXCLUSIVE DISCOUNT ✨</h2>
+      <div class="wheel-container">
+        <div class="wheel" id="spinWheel"></div>
+        <div class="wheel-pointer"></div>
+        <div class="wheel-center" id="spinButton">FREE SPIN</div>
+      </div>
+      <div id="spinResultMessage" class="spin-result"></div>
+      <button class="close-modal-btn" id="closeSpinModal" style="display: none;">Continue</button>
+      <div class="limited-text">Limited Time Spin Event</div>
+    </div>
+  </div>
+
+  <!-- Confetti canvas (hidden) -->
+  <canvas id="confetti-canvas" style="display: none;"></canvas>
+
   <script>
     (function() {
       // ---------- READ PRODUCT FROM localStorage ----------
@@ -707,7 +849,7 @@
       const upiSubRadios = document.querySelectorAll('input[name="upiSub"]');
       const orderBtn = document.getElementById('orderNowBtn');
 
-      // ---------- POPULATE ORDER SUMMARY WITH PRODUCT DATA ----------
+      // ---------- POPULATE ORDER SUMMARY ----------
       productSummary.innerHTML = `
         <img src="${product.image || 'https://picsum.photos/id/108/150/150'}" alt="${product.name}">
         <div class="product-info">
@@ -751,31 +893,20 @@
 
       // ---------- UPI SUB-OPTIONS TOGGLE ----------
       upiRadio.addEventListener('change', function() {
-        if (this.checked) {
-          upiSubOptions.style.display = 'block';
-        }
+        if (this.checked) upiSubOptions.style.display = 'block';
       });
-
       paymentRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-          if (this.value !== 'UPI') {
-            upiSubOptions.style.display = 'none';
-          } else {
-            upiSubOptions.style.display = 'block';
-          }
+          upiSubOptions.style.display = (this.value === 'UPI') ? 'block' : 'none';
         });
       });
 
-      // ---------- WHATSAPP MESSAGE (only product + payment) ----------
+      // ---------- GET PAYMENT METHOD ----------
       function getSelectedPayment() {
         for (let radio of paymentRadios) {
           if (radio.checked) {
             if (radio.value === 'UPI') {
-              for (let sub of upiSubRadios) {
-                if (sub.checked) {
-                  return `UPI (${sub.value})`;
-                }
-              }
+              for (let sub of upiSubRadios) if (sub.checked) return `UPI (${sub.value})`;
               return 'UPI (not specified)';
             }
             return radio.value;
@@ -784,20 +915,234 @@
         return null;
       }
 
-      orderBtn.addEventListener('click', function() {
-        // Validate payment method only
+      // ========== SPIN WHEEL FEATURE ==========
+      // ---- Configuration based on price ----
+      const isLowPrice = basePrice >= 50 && basePrice <= 100;
+      // Reward pools with weights (sum of weights = 100 for simplicity)
+      let rewardPool;
+      if (isLowPrice) {
+        rewardPool = [
+          { text: '5% OFF', code: 'code-xc03-PPzA', weight: 30 },
+          { text: '8% OFF', code: 'code-Jjh85-v6uocv', weight: 25 },
+          { text: '₹10 OFF', code: null, weight: 20 },
+          { text: 'Free Gift', code: null, weight: 15 },
+          { text: '2% OFF', code: 'code-Ak05-g067c', weight: 10 }
+        ];
+      } else {
+        rewardPool = [
+          { text: '10% OFF', code: 'code-So0b-rBOI', weight: 25 },
+          { text: '15% OFF', code: 'code-nj099-LpzMM', weight: 20 },
+          { text: '₹20 OFF', code: null, weight: 20 },
+          { text: 'Free Gift', code: null, weight: 15 },
+          { text: 'Exclusive Discount Card', code: null, weight: 15 },
+          { text: 'Buy One Get One Free', code: null, weight: 5 } // BOGO
+        ];
+      }
+
+      // BOGO daily limit (frontend simulation)
+      const BOGO_DAILY_LIMIT = 3;
+      function checkBOGOLimit() {
+        const today = new Date().toDateString();
+        const stored = localStorage.getItem('bogoData');
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            if (data.date === today && data.count >= BOGO_DAILY_LIMIT) {
+              return false; // limit reached
+            }
+          } catch (e) {}
+        }
+        return true;
+      }
+      function incrementBOGO() {
+        const today = new Date().toDateString();
+        let count = 1;
+        const stored = localStorage.getItem('bogoData');
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            if (data.date === today) count = data.count + 1;
+          } catch (e) {}
+        }
+        localStorage.setItem('bogoData', JSON.stringify({ date: today, count }));
+      }
+
+      // ---- Weighted random selector ----
+      function getRandomReward() {
+        // if BOGO unavailable and exists in pool, replace it with a fallback
+        let workingPool = rewardPool;
+        if (!isLowPrice && !checkBOGOLimit()) {
+          // remove BOGO or replace with another reward (e.g., 10% OFF)
+          workingPool = rewardPool.filter(r => r.text !== 'Buy One Get One Free');
+          // add fallback to keep weight sum ~100
+          workingPool.push({ text: '10% OFF', code: 'code-So0b-rBOI', weight: 5 }); // adjust
+        }
+        const totalWeight = workingPool.reduce((sum, r) => sum + r.weight, 0);
+        let rand = Math.random() * totalWeight;
+        for (let r of workingPool) {
+          if (rand < r.weight) return r;
+          rand -= r.weight;
+        }
+        return workingPool[0]; // fallback
+      }
+
+      // ---- Spin state ----
+      let spinUsed = localStorage.getItem('spinUsed') === 'true';
+      let spinReward = null;
+      try {
+        const savedReward = localStorage.getItem('spinReward');
+        if (savedReward) spinReward = JSON.parse(savedReward);
+      } catch (e) {}
+
+      // Display reward if already spun
+      const rewardDisplayDiv = document.getElementById('spinRewardDisplay');
+      if (spinUsed && spinReward) {
+        rewardDisplayDiv.style.display = 'block';
+        rewardDisplayDiv.innerHTML = `🎉 YOU WON: ${spinReward.text} 🎉`;
+      }
+
+      // ---- Modal elements ----
+      const modalOverlay = document.getElementById('spinModalOverlay');
+      const spinButton = document.getElementById('spinButton');
+      const wheel = document.getElementById('spinWheel');
+      const resultMsg = document.getElementById('spinResultMessage');
+      const closeBtn = document.getElementById('closeSpinModal');
+      const canvas = document.getElementById('confetti-canvas');
+      let spinning = false;
+
+      // Only show modal if spin not used yet
+      if (!spinUsed) {
+        modalOverlay.style.display = 'flex';
+      }
+
+      // Spin click handler
+      spinButton.addEventListener('click', function() {
+        if (spinning || spinUsed) return;
+        spinning = true;
+        spinButton.classList.add('disabled');
+        resultMsg.textContent = '';
+
+        // Pick reward
+        const reward = getRandomReward();
+        if (reward.text === 'Buy One Get One Free') incrementBOGO();
+
+        // Simulate wheel spin (rotate many times and stop at a "random" segment)
+        // We'll map reward to an angle (segment 0-7) but for simplicity we just show result after spin.
+        // To keep UX smooth, we rotate at least 5 full turns.
+        const extraTurns = 5;
+        const randomDegree = extraTurns * 360 + Math.floor(Math.random() * 360);
+        wheel.style.transition = 'transform 3s cubic-bezier(0.25, 0.1, 0.15, 1)';
+        wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+        // After animation, show result
+        setTimeout(() => {
+          spinning = false;
+          spinUsed = true;
+          spinReward = reward;
+          localStorage.setItem('spinUsed', 'true');
+          localStorage.setItem('spinReward', JSON.stringify(reward));
+
+          // Display result in modal
+          resultMsg.innerHTML = `🎉 YOU WON: ${reward.text} 🎉`;
+          // Show confetti
+          startConfetti();
+          setTimeout(stopConfetti, 2000);
+
+          // Enable close button
+          closeBtn.style.display = 'inline-block';
+
+          // Update reward display below order summary
+          rewardDisplayDiv.style.display = 'block';
+          rewardDisplayDiv.innerHTML = `🎉 YOU WON: ${reward.text} 🎉`;
+
+          // Disable spin button permanently
+          spinButton.style.pointerEvents = 'none';
+          spinButton.textContent = 'SPUN';
+        }, 3000); // match transition duration
+      });
+
+      // Close modal
+      closeBtn.addEventListener('click', function() {
+        modalOverlay.style.display = 'none';
+      });
+
+      // Optional: click outside to close (but only if reward already shown)
+      modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay && spinUsed) {
+          modalOverlay.style.display = 'none';
+        }
+      });
+
+      // ---- Simple confetti (canvas) ----
+      let ctx = canvas.getContext('2d');
+      let confettiActive = false;
+      let particles = [];
+      function startConfetti() {
+        canvas.style.display = 'block';
+        confettiActive = true;
+        particles = [];
+        for (let i = 0; i < 60; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height * 0.2,
+            size: Math.random() * 5 + 2,
+            speedY: Math.random() * 3 + 2,
+            speedX: Math.random() * 2 - 1,
+            color: `hsl(${Math.random() * 60 + 30}, 80%, 60%)` // gold-ish
+          });
+        }
+        requestAnimationFrame(updateConfetti);
+      }
+      function updateConfetti() {
+        if (!confettiActive) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let p of particles) {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          if (p.y > canvas.height) {
+            p.y = 0;
+            p.x = Math.random() * canvas.width;
+          }
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        }
+        requestAnimationFrame(updateConfetti);
+      }
+      function stopConfetti() {
+        confettiActive = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'none';
+      }
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // ========== MODIFY ORDER NOW TO INCLUDE SPIN REWARD ==========
+      // (preserve original logic, just add reward line)
+      const originalOrderClick = orderBtn.onclick;
+      orderBtn.addEventListener('click', function(e) {
+        // Validate payment method
         const paymentMethod = getSelectedPayment();
         if (!paymentMethod) {
           alert('Please select a payment method.');
           return;
         }
 
-        // Calculate current total
+        // Calculate total
         const subtotal = basePrice * quantity;
         const gst = Math.round(subtotal * GST_PERCENT / 100);
         const total = subtotal + gst;
 
-        // Build WhatsApp message with product details only
+        // Build message with reward if exists
+        let rewardLine = '';
+        if (spinReward) {
+          const codeDisplay = spinReward.code ? ` (${spinReward.code})` : '';
+          rewardLine = `Spinning Reward: ${spinReward.text}${codeDisplay}\n`;
+        }
+
         const message = `Hello, I want to place an order.
 
 🛍 *Product Details:*
@@ -805,16 +1150,23 @@ Product Name: ${product.name}
 Product ID: ${product.id}
 Price: ₹${basePrice}
 Quantity: ${quantity}
-Total Amount: ₹${total}
+${rewardLine}Total Amount: ₹${total}
 
 💳 *Payment Method:* ${paymentMethod}
 
 Please confirm my order.`;
 
-        // Encode and open WhatsApp
         const encoded = encodeURIComponent(message);
         const whatsappURL = `https://wa.me/918927956691?text=${encoded}`;
         window.open(whatsappURL, '_blank');
+
+        // Clear spin data after order (optional)
+        // localStorage.removeItem('spinUsed');
+        // localStorage.removeItem('spinReward');
+        // (keep if you want to preserve for this session, but spec says clear)
+        // We'll clear so next product forces new spin.
+        localStorage.removeItem('spinUsed');
+        localStorage.removeItem('spinReward');
       });
 
     })();
